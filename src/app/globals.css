@@ -28,7 +28,7 @@ body {
 
 @layer components {
   .available {
-    @apply bg-available bg-center bg-no-repeat;
+    @apply bg-[length:40%] bg-available bg-center bg-no-repeat;
   }
 
   .selected {

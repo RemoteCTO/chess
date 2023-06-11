@@ -58,6 +58,10 @@ export default class Chess {
     return rank >= 0 && rank < 8 && file >= 0 && file < 8;
   }
 
+  outOfBounds(rank: number, file: number): boolean {
+    return !this.inBounds(rank, file);
+  }
+
   pieceAt(rank: number, file: number): ChessPiece {
     return PieceFactory.createPiece({code: this.ranks[rank][file]});
   }

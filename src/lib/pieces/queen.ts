@@ -1,8 +1,12 @@
 import ChessPiece from "../ChessPiece";
 import Chess from "../Chess";
-export default class Bishop extends ChessPiece {
+export default class Queen extends ChessPiece {
   readonly MOVE_DESCRIPTOR = {
-    directions: [[1, 1], [1, -1], [-1, 1], [-1, -1]],
+    directions: [
+      [-1, 1], [0, 1], [1, 1],
+      [-1, 0], [1, 0],
+      [-1, -1],[0, -1], [1, -1],
+    ],
     maxSteps: 7,
   };
 

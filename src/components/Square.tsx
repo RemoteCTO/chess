@@ -15,10 +15,8 @@ export default function Square(props) {
       className={`float-left w-[12.5%] h-[12.5%] flex ${highlightState} ${cheqClass()}`}
       onClick={onClick}
     >
-      <div className="m-auto">
-        <p className="text-4xl md:text-7xl text-rose-600 text-center">
-          <Piece code={piece} />
-        </p>
+      <div className="m-auto flex items-center justify-center">
+        <Piece code={piece} />
       </div>
     </div>
   );
