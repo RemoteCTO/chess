@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "ES6",
+    "baseUrl": ".",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
     "allowJs": true,
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,

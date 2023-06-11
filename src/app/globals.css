@@ -25,3 +25,25 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+@layer components {
+  .available {
+    @apply bg-available bg-center bg-no-repeat;
+  }
+
+  .selected {
+    @apply bg-[#7B61FF] !important;
+  }
+
+  .target {
+    @apply bg-rose-200 rounded-2xl border-4 border-[#7B61FF];
+  }
+
+  .cheq-a {
+    @apply bg-[#E8EDF9];
+  }
+
+  .cheq-b {
+    @apply bg-[#B7C0D8];
+  }
+}

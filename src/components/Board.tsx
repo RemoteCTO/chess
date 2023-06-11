@@ -1,50 +1,58 @@
 'use client';
 
 import Square from './Square';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export default function Board() {
-  const [activeIndex, setActiveIndex] = useState(-1);
-  const [game, setGame] = useState('rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR');
-  const [availableMoves, setAvailableMoves] = useState([]);
+import Chess from '../lib/Chess';
 
-  const handleClick = (i) => {
-    setActiveIndex(i);
-    setAvailableMoves(calculateAvailableMoves(game[i], i));
-  };
+export default function Board(props: { fen: string }) {
+  const ranks = '12345678';
+  const files = 'abcdefgh';
 
-  const calculateAvailableMoves = (piece, i) => {
-    let color = piece.toUpperCase() === piece ? 'white' : 'black';
-
-    if (piece.toUpperCase() === 'P') {
-      if (color === 'white') {
-        return [i-8, i-16];
-      } else {
-        return [i+8, i+16];
-      }
-    } else {
-      return [];
-    }
-  };
-
-  const squares = [];
-
-  [...game].forEach((piece, i) => {
-    squares.push(
-      <Square
-        key={i}
-        ky={i}
-        onClick={handleClick.bind(this, i)}
-        selected={activeIndex === i}
-        available={availableMoves.includes(i)}
-        piece={piece}
-      />
-    );
+  const [state, setState] = useState({
+    game: new Chess({ fen: props.fen }),
+    selectedIndex: -1,
   });
+
+  const squareClicked = (index: number) => {
+    setState({
+      ...state,
+      selectedIndex: index,
+    });
+  }
+
+  const highlightStateFor = (index: number) => {
+    if (index === state.selectedIndex) { return 'selected'; }
+
+    let options = state.game.optionsForSquare(state.selectedIndex);
+
+    if (options.targets.includes(index)) { return 'target'; }
+    if (options.moves.includes(index)) { return 'available'; }
+    return 'none';
+  }
 
   return (
     <div className="board border-8 h-full w-full">
-      {squares}
+      {/* The reversal is not efficient and needs revisiting */}
+      {[...state.game.ranks].map((rank, rankId) => {
+        return (
+          <React.Fragment key={rankId}>
+            {rank.split('').map((piece, fileId) => {
+              let index = rankId*8+fileId;
+              return (
+                <Square
+                  key={Math.random() + index}
+                  rank={rankId}
+                  file={fileId}
+                  highlightState={highlightStateFor(index)}
+                  piece={piece}
+                  onClick={() => squareClicked(index)}
+                />
+              );
+            })}
+          </React.Fragment>
+        );
+      })}
     </div>
   );
 }
