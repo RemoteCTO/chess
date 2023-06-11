@@ -1,4 +1,5 @@
-export default class ChessPiece {
+import Chess from './Chess';
+export default abstract class ChessPiece {
   code: string;
 
   constructor(code: string) {
@@ -12,4 +13,15 @@ export default class ChessPiece {
   get type() {
     return this.code.toLowerCase();
   }
+
+  get isBlank() {
+    return this.code === '-';
+  }
+
+  abstract moveOptions(
+    selectedIndex: number,
+    rank: number,
+    file: number,
+    game: Chess,
+  ): { targets: number[], moves: number[] };
 }
